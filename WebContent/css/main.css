@@ -1,0 +1,10 @@
+.error
+{
+	font-weight: bold;
+	color: red;
+}
+
+.main_content_section h1, h2, h3
+{
+    color: #2191c0;
+}
