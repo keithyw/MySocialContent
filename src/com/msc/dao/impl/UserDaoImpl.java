@@ -34,26 +34,16 @@ public class UserDaoImpl implements UserDao
 	@Override
 	public void save(User user)
 	{
-		try
-		{
-			this.sessionFactory.getCurrentSession().save(user);
-		}
-		catch (Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
+		this.sessionFactory.getCurrentSession().save(user);
 	}
 
 	@Override
 	public boolean doesUsernameExist(String username)
 	{
-		int i = this.sessionFactory.getCurrentSession().createQuery("from User u where u.username = ?")
+		return this.sessionFactory.getCurrentSession().createQuery("from User u where u.username = ?")
 			.setString(0, username)
 			.list()
-			.size();
-		System.out.println("i " + i);
-		return i > 0 ? true : false;
-		
+			.size() > 0 ? true : false;
 	}
 
 	@Override
