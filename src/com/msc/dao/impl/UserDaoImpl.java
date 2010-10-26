@@ -47,21 +47,22 @@ public class UserDaoImpl implements UserDao
 	@Override
 	public boolean doesUsernameExist(String username)
 	{
-		User user = null;
-		user = (User)this.sessionFactory.getCurrentSession().createQuery("from User u where u.username = ?")
+		int i = this.sessionFactory.getCurrentSession().createQuery("from User u where u.username = ?")
 			.setString(0, username)
-			.uniqueResult();
-		return user == null ? false : true;
+			.list()
+			.size();
+		System.out.println("i " + i);
+		return i > 0 ? true : false;
+		
 	}
 
 	@Override
 	public boolean doesEmailExist(String email)
 	{
-		User user = null;
-		user = (User)this.sessionFactory.getCurrentSession().createQuery("from User u where u.email = ?")
+		return this.sessionFactory.getCurrentSession().createQuery("from User u where u.email = ?")
 			.setString(0, email)
-			.uniqueResult();
-		return user == null ? false : true;
+			.list()
+			.size() > 0 ? true : false;
 	}
 
 }

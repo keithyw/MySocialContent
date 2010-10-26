@@ -20,13 +20,21 @@ public class RegistrationServiceImpl implements RegistrationService
 	}
 	
 	@Transactional
-	public void register(User user) throws Exception
+	public void register(User user)
 	{
-		if (this.userDao.doesUsernameExist(user.getUsername())) 
-			throw new Exception(user.getUsername() + " already exist");
-		if (this.userDao.doesEmailExist(user.getEmail()))
-			throw new Exception(user.getEmail() + " already exist");
 		this.userDao.save(user);
+	}
+
+	@Override
+	public boolean doesEmailExist(String email)
+	{
+		return this.userDao.doesEmailExist(email);
+	}
+
+	@Override
+	public boolean doesUsernameExist(String username)
+	{
+		return this.userDao.doesUsernameExist(username);
 	}
 
 }
