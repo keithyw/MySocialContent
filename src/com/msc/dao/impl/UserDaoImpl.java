@@ -31,6 +31,13 @@ public class UserDaoImpl implements UserDao
 		return null;
 	}
 
+	public User findByUsername(String username)
+	{
+		return (User)this.sessionFactory.getCurrentSession().createQuery("from User u where u.username = ?")
+			.setString(0, username)
+			.uniqueResult();
+	}
+	
 	@Override
 	public void save(User user)
 	{
